@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Priyadharshini Vijaya Kumar — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --black:#0a0a0a;
+    --white:#fbfbfa;
+    --line:#d8d8d3;
+    --line-dark:#3a3a38;
+    --muted:#6b6b66;
+    --muted-inv:#a8a8a2;
+    --sidebar-w: 340px;
+  }
+
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    *{ animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; }
+  }
+
+  body{
+    margin:0;
+    background:var(--white);
+    color:var(--black);
+    font-family:'Space Grotesk', 'Segoe UI', Arial, sans-serif;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  a{ color:inherit; }
+
+  ::selection{ background:var(--black); color:var(--white); }
+
+  :focus-visible{
+    outline:2px solid var(--black);
+    outline-offset:3px;
+  }
+  .sidebar :focus-visible{
+    outline:2px solid var(--white);
+  }
+
+  .mono{
+    font-family:'JetBrains Mono', 'Consolas', monospace;
+  }
+
+  /* ---------- layout ---------- */
+  .wrap{
+    display:flex;
+    min-height:100vh;
+    align-items:stretch;
+  }
+
+  .sidebar{
+    width:var(--sidebar-w);
+    flex-shrink:0;
+    background:var(--black);
+    color:var(--white);
+    position:sticky;
+    top:0;
+    height:100vh;
+    padding:48px 40px;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+  }
+
+  .brand .index-label{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    letter-spacing:0.04em;
+    color:var(--muted-inv);
+    margin:0 0 18px;
+  }
+
+  .brand h1{
+    font-size:clamp(28px, 3vw, 34px);
+    line-height:1.15;
+    margin:0 0 10px;
+    font-weight:600;
+    letter-spacing:-0.01em;
+  }
+
+  .brand .role{
+    font-size:15px;
+    color:var(--muted-inv);
+    margin:0 0 34px;
+    max-width:26ch;
+  }
+
+  nav ul{
+    list-style:none;
+    margin:0;
+    padding:0;
+    border-top:1px solid var(--line-dark);
+  }
+
+  nav li{
+    border-bottom:1px solid var(--line-dark);
+  }
+
+  nav a{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:13px 2px;
+    text-decoration:none;
+    font-size:14.5px;
+    color:var(--muted-inv);
+    transition:color .15s ease, padding-left .15s ease;
+  }
+
+  nav a .n{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    color:var(--line-dark);
+  }
+
+  nav a:hover, nav a:focus-visible, nav a.active{
+    color:var(--white);
+    padding-left:8px;
+  }
+  nav a.active .n, nav a:hover .n{
+    color:var(--muted-inv);
+  }
+
+  .sidebar-footer{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12.5px;
+    color:var(--muted-inv);
+    border-top:1px solid var(--line-dark);
+    padding-top:20px;
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+  }
+  .sidebar-footer a{
+    text-decoration:none;
+    border-bottom:1px solid transparent;
+  }
+  .sidebar-footer a:hover, .sidebar-footer a:focus-visible{
+    color:var(--white);
+    border-bottom-color:var(--white);
+  }
+
+  main{
+    flex:1;
+    min-width:0;
+    padding:64px clamp(28px, 6vw, 96px) 100px;
+    max-width:960px;
+  }
+
+  section{
+    padding-top:64px;
+    scroll-margin-top:28px;
+  }
+  section:first-of-type{ padding-top:0; }
+
+  .section-head{
+    display:flex;
+    align-items:baseline;
+    gap:16px;
+    margin-bottom:28px;
+    border-bottom:1px solid var(--line);
+    padding-bottom:14px;
+  }
+  .section-head .tag{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    color:var(--muted);
+    white-space:nowrap;
+  }
+  .section-head h2{
+    font-size:22px;
+    margin:0;
+    font-weight:600;
+    letter-spacing:-0.01em;
+  }
+
+  /* ---------- hero / summary ---------- */
+  .hero p{
+    font-size:clamp(19px, 2.1vw, 24px);
+    max-width:44ch;
+    margin:0 0 26px;
+    font-weight:400;
+  }
+  .hero .hero-meta{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px 28px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+    color:var(--muted);
+  }
+  .hero .hero-meta span{ white-space:nowrap; }
+
+  .fade-in{
+    opacity:0;
+    transform:translateY(10px);
+    animation:fadeUp .7s ease forwards;
+  }
+  @keyframes fadeUp{
+    to{ opacity:1; transform:translateY(0); }
+  }
+
+  /* ---------- education ---------- */
+  .timeline{
+    list-style:none;
+    margin:0;
+    padding:0;
+  }
+  .timeline li{
+    display:grid;
+    grid-template-columns:44px 1fr auto;
+    gap:18px;
+    padding:20px 0;
+    border-bottom:1px solid var(--line);
+    align-items:start;
+  }
+  .timeline li:last-child{ border-bottom:none; }
+  .timeline .num{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+    color:var(--muted);
+    padding-top:2px;
+  }
+  .timeline h3{
+    margin:0 0 4px;
+    font-size:16.5px;
+    font-weight:600;
+  }
+  .timeline .school{
+    margin:0;
+    font-size:14.5px;
+    color:var(--muted);
+  }
+  .timeline .score{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+    color:var(--black);
+    justify-self:end;
+    text-align:right;
+    white-space:nowrap;
+    padding-top:2px;
+  }
+  .timeline .date{
+    display:block;
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    color:var(--muted);
+    margin-top:2px;
+  }
+
+  /* ---------- skills ---------- */
+  .skill-group{
+    margin-bottom:26px;
+  }
+  .skill-group:last-child{ margin-bottom:0; }
+  .skill-group h3{
+    font-family:'JetBrains Mono', monospace;
+    font-weight:500;
+    font-size:12.5px;
+    color:var(--muted);
+    margin:0 0 12px;
+  }
+  .tags{
+    display:flex;
+    flex-wrap:wrap;
+    gap:9px;
+  }
+  .tags span{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+    border:1px solid var(--black);
+    padding:6px 12px;
+    transition:background .15s ease, color .15s ease;
+  }
+  .tags span:hover{
+    background:var(--black);
+    color:var(--white);
+  }
+
+  /* ---------- projects ---------- */
+  .project{
+    padding:28px 0;
+    border-bottom:1px solid var(--line);
+    display:grid;
+    grid-template-columns:1fr;
+    gap:10px;
+  }
+  .project:last-child{ border-bottom:none; }
+  .project-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    gap:16px;
+    flex-wrap:wrap;
+  }
+  .project h3{
+    margin:0;
+    font-size:19px;
+    font-weight:600;
+  }
+  .project .date{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12.5px;
+    color:var(--muted);
+    white-space:nowrap;
+  }
+  .project ul{
+    margin:6px 0 0;
+    padding-left:20px;
+    color:#2b2b2b;
+    font-size:14.5px;
+  }
+  .project li{ margin-bottom:6px; }
+  .project li:last-child{ margin-bottom:0; }
+
+  /* ---------- certifications ---------- */
+  .cert-list{
+    list-style:none;
+    margin:0;
+    padding:0;
+    display:grid;
+    gap:1px;
+    background:var(--line);
+    border:1px solid var(--line);
+  }
+  .cert-list li{
+    background:var(--white);
+    padding:16px 18px;
+    font-size:14.5px;
+    display:flex;
+    align-items:center;
+    gap:14px;
+  }
+  .cert-list li .mark{
+    font-family:'JetBrains Mono', monospace;
+    color:var(--muted);
+    font-size:12px;
+  }
+
+  /* ---------- languages ---------- */
+  .lang-row{
+    display:flex;
+    flex-wrap:wrap;
+    gap:12px;
+  }
+  .lang-row span{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+    color:var(--black);
+    border-bottom:1px solid var(--black);
+    padding-bottom:2px;
+  }
+
+  /* ---------- contact ---------- */
+  .contact-box{
+    border:1px solid var(--black);
+    padding:40px;
+  }
+  .contact-box p{
+    max-width:48ch;
+    margin:0 0 24px;
+    font-size:16px;
+  }
+  .contact-links{
+    display:flex;
+    flex-wrap:wrap;
+    gap:14px;
+  }
+  .contact-links a{
+    font-family:'JetBrains Mono', monospace;
+    font-size:14px;
+    text-decoration:none;
+    border:1px solid var(--black);
+    padding:12px 20px;
+    transition:background .15s ease, color .15s ease;
+  }
+  .contact-links a:hover, .contact-links a:focus-visible{
+    background:var(--black);
+    color:var(--white);
+  }
+
+  footer.page-footer{
+    margin-top:70px;
+    padding-top:22px;
+    border-top:1px solid var(--line);
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    color:var(--muted);
+    display:flex;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:10px;
+  }
+
+  /* ---------- mobile nav toggle ---------- */
+  .mobile-bar{ display:none; }
+
+  @media (max-width: 880px){
+    .wrap{ flex-direction:column; }
+    .sidebar{
+      position:relative;
+      width:100%;
+      height:auto;
+      padding:28px 24px;
+    }
+    .brand .role{ max-width:none; }
+    nav{ display:none; }
+    .sidebar-footer{ flex-direction:row; flex-wrap:wrap; gap:16px; border-top:none; padding-top:14px; }
+    .mobile-bar{
+      display:flex;
+      overflow-x:auto;
+      gap:4px;
+      border-top:1px solid var(--line-dark);
+      margin-top:20px;
+      padding-top:14px;
+    }
+    .mobile-bar a{
+      font-family:'JetBrains Mono', monospace;
+      font-size:12px;
+      color:var(--muted-inv);
+      text-decoration:none;
+      white-space:nowrap;
+      padding:6px 10px;
+      border:1px solid var(--line-dark);
+    }
+    main{ padding:44px 22px 70px; max-width:100%; }
+    .timeline li{ grid-template-columns:30px 1fr; }
+    .timeline .score{ grid-column:2; justify-self:start; text-align:left; margin-top:4px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <aside class="sidebar">
+    <div>
+      <div class="brand">
+        <p class="index-label">// portfolio</p>
+        <h1>Priyadharshini<br>Vijaya Kumar</h1>
+        <p class="role">B.Sc. Computer Science graduate — Python, web, and data.</p>
+      </div>
+
+      <nav aria-label="Section navigation">
+        <ul>
+          <li><a href="#summary" class="n">01</a></li>
+          <li><a href="#education"><span class="n">02</span>Education</a></li>
+          <li><a href="#skills"><span class="n">03</span>Skills</a></li>
+          <li><a href="#projects"><span class="n">04</span>Projects</a></li>
+          <li><a href="#certifications"><span class="n">05</span>Certifications</a></li>
+          <li><a href="#contact"><span class="n">06</span>Contact</a></li>
+        </ul>
+      </nav>
+
+      <div class="mobile-bar">
+        <a href="#summary">Summary</a>
+        <a href="#education">Education</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#certifications">Certifications</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+
+    <div class="sidebar-footer">
+      <a href="mailto:priyadharshini.19v@gmail.com">priyadharshini.19v@gmail.com</a>
+      <a href="tel:+919789105864">+91 97891 05864</a>
+      <span>Walaja, Tamil Nadu, India</span>
+    </div>
+  </aside>
+
+  <main>
+    <section id="summary" class="hero">
+      <div class="section-head">
+        <span class="tag">01 / intro</span>
+      </div>
+      <p class="fade-in">A motivated B.Sc. Computer Science graduate with a foundation in Python, JavaScript, DBMS, SQL, and machine learning fundamentals — looking to solve real problems through software and data.</p>
+      <div class="hero-meta fade-in" style="animation-delay:.12s">
+        <span>Graduating May 2026</span>
+        <span>CGPA 8.24</span>
+        <span>M.M.E.S Women's Arts &amp; Science College, Arcot</span>
+      </div>
+    </section>
+
+    <section id="education">
+      <div class="section-head">
+        <span class="tag mono">02 / education</span>
+        <h2>Education</h2>
+      </div>
+      <ul class="timeline">
+        <li>
+          <span class="num">01</span>
+          <div>
+            <h3>Secondary School Certificate (SSC), CBSE</h3>
+            <p class="school">Vedavalli Vidyalaya Senior Secondary School, Ranipet</p>
+            <span class="date mono">April 2021</span>
+          </div>
+          <span class="score">59.2%</span>
+        </li>
+        <li>
+          <span class="num">02</span>
+          <div>
+            <h3>Higher Secondary School (HSC), Tamil Nadu State Board</h3>
+            <p class="school">Vedavalli Vidyalaya Higher Secondary School, Ranipet</p>
+            <span class="date mono">April 2023</span>
+          </div>
+          <span class="score">87.6%</span>
+        </li>
+        <li>
+          <span class="num">03</span>
+          <div>
+            <h3>Bachelor of Computer Science (B.Sc)</h3>
+            <p class="school">M.M.E.S Women's Arts &amp; Science College, Arcot</p>
+            <span class="date mono">May 2026</span>
+          </div>
+          <span class="score">CGPA 8.24</span>
+        </li>
+      </ul>
+    </section>
+
+    <section id="skills">
+      <div class="section-head">
+        <span class="tag mono">03 / skills</span>
+        <h2>Skills</h2>
+      </div>
+
+      <div class="skill-group">
+        <h3>Programming &amp; full stack</h3>
+        <div class="tags">
+          <span>Python</span><span>Java</span><span>C++</span><span>HTML</span><span>CSS</span><span>PHP</span><span>JavaScript</span>
+        </div>
+      </div>
+
+      <div class="skill-group">
+        <h3>Data &amp; databases</h3>
+        <div class="tags">
+          <span>MySQL</span><span>SQL Queries</span><span>ER Diagrams</span><span>Machine Learning Fundamentals</span>
+        </div>
+      </div>
+
+      <div class="skill-group">
+        <h3>Tools</h3>
+        <div class="tags">
+          <span>Canva</span><span>MS Office</span>
+        </div>
+      </div>
+
+      <div class="skill-group">
+        <h3>Working style</h3>
+        <div class="tags">
+          <span>Problem Solving</span><span>Teamwork</span><span>Communication</span><span>Leadership Potential</span><span>Adaptability</span><span>Analytical Thinking</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <div class="section-head">
+        <span class="tag mono">04 / projects</span>
+        <h2>Projects</h2>
+      </div>
+
+      <div class="project">
+        <div class="project-top">
+          <h3>Portfolio</h3>
+          <span class="date">Feb 2025 – Mar 2025</span>
+        </div>
+        <ul>
+          <li>Designed and developed a personal portfolio website using HTML, CSS, and JavaScript.</li>
+          <li>Built a responsive, user-friendly interface so the site works well on any screen.</li>
+          <li>Hosted the project on GitHub to show version-control knowledge and make it easy for recruiters to reach.</li>
+        </ul>
+      </div>
+
+      <div class="project">
+        <div class="project-top">
+          <h3>Blockchain Meets Cloud</h3>
+          <span class="date">Jul 2025 – Oct 2025</span>
+        </div>
+        <ul>
+          <li>Built a blockchain-based application for secure, transparent, tamper-resistant data management.</li>
+          <li>Integrated cloud technology for scalable storage, efficient data access, and better system availability.</li>
+          <li>Implemented transaction data integrity and user authentication using blockchain concepts.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="certifications">
+      <div class="section-head">
+        <span class="tag mono">05 / certifications</span>
+        <h2>Certifications</h2>
+      </div>
+      <ul class="cert-list">
+        <li><span class="mark">&gt;</span> Internship Completion — Data Science, DLK Software Solutions</li>
+        <li><span class="mark">&gt;</span> Exploring the Transitions and Trends in Artificial Intelligence Systems</li>
+        <li><span class="mark">&gt;</span> Power BI: Unlocking Data-Driven Decisions, One Visualization at a Time</li>
+        <li><span class="mark">&gt;</span> Build Your Own AI Mobile App</li>
+      </ul>
+
+      <div class="skill-group" style="margin-top:38px;">
+        <h3>Languages</h3>
+        <div class="lang-row">
+          <span>English</span><span>Tamil</span><span>Telugu</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="section-head">
+        <span class="tag mono">06 / contact</span>
+        <h2>Contact</h2>
+      </div>
+      <div class="contact-box">
+        <p>Open to opportunities in software development and data analysis. The fastest way to reach me is email or phone.</p>
+        <div class="contact-links">
+          <a href="mailto:priyadharshini.19v@gmail.com">Email me</a>
+          <a href="tel:+919789105864">Call +91 97891 05864</a>
+        </div>
+      </div>
+
+      <footer class="page-footer">
+        <span>Priyadharshini Vijaya Kumar</span>
+        <span>Walaja, Tamil Nadu, India</span>
+      </footer>
+    </section>
+  </main>
+</div>
+
+<script>
+  // Active nav highlighting via scroll position
+  const sections = document.querySelectorAll('main section[id]');
+  const navLinks = document.querySelectorAll('.sidebar nav a');
+
+  const setActive = (id) => {
+    navLinks.forEach(a => {
+      a.classList.toggle('active', a.getAttribute('href') === '#' + id);
+    });
+  };
+
+  if ('IntersectionObserver' in window && sections.length){
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting){
+          setActive(entry.target.id);
+        }
+      });
+    }, { rootMargin: '-20% 0px -70% 0px', threshold: 0 });
+
+    sections.forEach(s => observer.observe(s));
+  }
+</script>
+
+</body>
+</html>
